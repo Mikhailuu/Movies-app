@@ -1,0 +1,12 @@
+.movie-card {
+  width: 454px;
+  height: 281px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 15%);
+}
+
+.movie-card__body {
+  padding: 0 20px;
+  text-align: start;
+}
