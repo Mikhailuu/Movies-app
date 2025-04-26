@@ -1,40 +1,68 @@
 import "./MovieList.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Grid from "antd/es/card/Grid";
 import { fetchMovies } from "../../utils/api";
 import MovieCard from "../MovieCard";
-import { Row, Col } from "antd";
+import { Row, Col, Spin, Alert } from "antd";
 
-const MovieList = () => {
+const MovieList = ({ query, activePage }) => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      return;
+    }
     const loadMovies = async () => {
+      setLoading(true);
       try {
-        const fetchedMovies = await fetchMovies("The way back");
-        setMovies(fetchedMovies);
+        const fetchedMovies = await fetchMovies(query, activePage);
+        if (fetchedMovies.length === 0) {
+          setError(
+            <Alert message={"Поиск не дал результатов"} type={"warning"} />
+          );
+        } else {
+          setMovies(fetchedMovies.toSpliced(6));
+        }
       } catch (error) {
-        console.error("Files load error: ", error);
+        setError(<Alert message={error.message} type={"error"} />);
       } finally {
         setLoading(false);
       }
     };
 
     loadMovies();
-  }, []);
+  }, [isFirstRender, query, activePage]);
 
-  if (loading) return <div>loading...</div>;
-
-  return (
-    <Grid>
-      <h1>Фильмы</h1>
-      <Row className="movie-list" gutter={[36, 36]}>
+  const ListView = () => {
+    return (
+      <Fragment>
         {movies.map((movie) => (
           <Col key={movie.id}>
             <MovieCard data={movie} />
           </Col>
         ))}
+      </Fragment>
+    );
+  };
+
+  const Spinner = () => {
+    return <Spin></Spin>;
+  };
+
+  const spinner = loading ? <Spin /> : null;
+  const content = !loading ? <ListView /> : null;
+  const errorMessage = error ? error : null;
+
+  return (
+    <Grid>
+      <Row className="movie-list" gutter={[36, 36]}>
+        {spinner}
+        {content}
+        {errorMessage}
       </Row>
     </Grid>
   );

@@ -7,13 +7,13 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-export const fetchMovies = async (query) => {
+export const fetchMovies = async (query, page) => {
   try {
     const response = await api.get(`/search/movie`, {
       params: {
         api_key: API_KEY,
         query: query,
-        page: 1,
+        page: page,
       },
     });
     return response.data.results;

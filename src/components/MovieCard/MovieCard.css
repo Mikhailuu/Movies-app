@@ -6,7 +6,37 @@
   box-shadow: 0 4px 12px 0 rgb(0 0 0 / 15%);
 }
 
-.movie-card__body {
+.ant-card .ant-card-body {
   padding: 0 20px;
   text-align: start;
+}
+
+.movie-card__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-card__vote-average {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #e9d100;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 200%;
+}
+
+.movie-card__overview {
+  font-size: 12px;
+}
+
+.ant-card-body {
+  position: relative;
+}
+
+.ant-rate {
+  position: absolute;
+  top: 50%;
+  transform: translateY(495%);
 }
