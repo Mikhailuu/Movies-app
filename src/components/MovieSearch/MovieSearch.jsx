@@ -4,8 +4,7 @@ import { debounce } from "lodash";
 
 const MovieSearch = ({ setQuery }) => {
   const onLabelChange = (e) => {
-    //setLabel(e.target.value);
-    console.log(e.target.value);
+    if (e.target.value === "") return;
     setQuery(e.target.value);
   };
 

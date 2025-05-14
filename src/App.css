@@ -1,5 +1,4 @@
 #root {
-  max-width: 944px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -16,4 +15,18 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.ant-tabs {
+  max-width: 944px;
+  min-height: 100vh;
+}
+
+.ant-tabs-tabpane {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  row-gap: 32px;
 }

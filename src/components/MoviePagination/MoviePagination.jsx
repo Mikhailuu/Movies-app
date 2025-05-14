@@ -1,10 +1,11 @@
 import { Pagination } from "antd";
 
-const MoviePagination = ({ onChange }) => {
+const MoviePagination = ({ total, onChange }) => {
   return (
     <Pagination
-      defaultCurrent={1}
-      total={50}
+      total={total}
+      hideOnSinglePage={true}
+      showSizeChanger={false}
       onChange={(page) => onChange(page)}
     />
   );
